@@ -1,0 +1,52 @@
+.mat-row {
+  &:hover {
+    background-color: #e9f3ff;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .mat-header-row {
+    display: none;
+  }
+
+  tbody {
+    display: block;
+    width: 100%;
+  }
+
+  .mat-table {
+    background: transparent;
+
+    .mat-row {
+      padding: 0.5em;
+      display: flex;
+      flex-direction: column;
+      // text-align: center;
+      overflow: hidden;
+      height: auto;
+      box-shadow: 0 0.2em 2em -2em rgba(0, 0, 0, 0.2),
+        0 0.2em 0.2em 0 rgba(0, 0, 0, 0.14),
+        0 0.2em 0.4em 0 rgba(0, 0, 0, 0.12);
+      background-color: #fff;
+      border-radius: 0.5em;
+
+      + .mat-row {
+        margin-top: 1.5rem;
+      }
+    }
+
+    .mat-cell {
+      display: block;
+      margin: 0.5em 0 !important;
+      border: 0 none;
+      padding: 0;
+
+      &:before {
+        color: inherit;
+        content: attr(data-label);
+        display: inline;
+        font-weight: 600;
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+<app-cabecera [inTitulo]="'Listado de peliculas'">
+  <div class="contenedor-peliculas">
+    <app-tarjeta
+      *ngFor="
+        let pelicula of listadoPeliculas$ | async;
+        trackBy: 'id' | trackBy
+      "
+      [inPelicula]="pelicula"
+      (outPeliculaSeleccionada)="onSeleccionarPelicula($event)"
+    ></app-tarjeta>
+  </div>
+</app-cabecera>

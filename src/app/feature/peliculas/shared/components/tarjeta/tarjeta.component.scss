@@ -1,0 +1,15 @@
+.contenido-informacion {
+  height: auto;
+  word-wrap: break-word;
+  & p {
+    margin-bottom: 0;
+    & span {
+      font-weight: 700;
+    }
+  }
+}
+
+.precio-antiguo {
+  color: red;
+  text-decoration: line-through;
+}

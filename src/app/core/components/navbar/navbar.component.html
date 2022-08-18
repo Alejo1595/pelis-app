@@ -1,0 +1,56 @@
+<div class="menu-contenedor">
+  <mat-toolbar color="primary" class="toolbar">
+    <mat-toolbar-row fxLayout="row">
+      <div fxFlex="1 1 calc(50%)" fxLayoutAlign="start center">
+        <button mat-icon-button (click)="sidenav.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span>Pelis-app</span>
+      </div>
+
+      <div fxFlex="1 1 calc(50%)" fxLayoutAlign="end center">
+        <button mat-icon-button>
+          <mat-icon
+            [matBadge]="carritoService.totalPeliculas"
+            matBadgeOverlap="true"
+            matBadgeSize="small"
+            matBadgeColor="accent"
+          >
+            shopping_cart
+          </mat-icon>
+        </button>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="sidenav-contenedor">
+    <mat-sidenav
+      #sidenav
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false"
+      [fxFlex]="(isHandset$ | async) ? '1 1 100%' : '150px'"
+      fxFill
+    >
+      <mat-nav-list
+        fxLayout="column"
+        fxLayoutAlign="center center"
+        fxLayoutGap="15px"
+      >
+        <button
+          *ngFor="let itemMenu of infoMenu$ | async"
+          mat-button
+          routerLinkActive="active-list-item"
+          fxFill
+          [routerLink]="itemMenu.url"
+          (click)="closeMenu()"
+        >
+          {{ itemMenu.nombre }}
+        </button>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content class="menu-contenido">
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

@@ -1,0 +1,17 @@
+.contenedor-peliculas {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 10px;
+
+  @media screen and (min-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and (min-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  @media screen and (min-width: 920px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

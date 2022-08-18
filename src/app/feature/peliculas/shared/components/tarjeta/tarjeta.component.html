@@ -1,0 +1,36 @@
+<mat-card>
+  <img
+    mat-card-image
+    [src]="inPelicula.urlImagen"
+    [alt]="inPelicula.tituloPelicula"
+  />
+  <mat-card-header fxLayoutAlign="center center">
+    <mat-card-title class="centrar-titulo">
+      {{ inPelicula.tituloPelicula }}
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content class="contenido-informacion">
+    <p><span>Duración</span>: {{ inPelicula.duracion }} min</p>
+    <p><span>Genero</span>: {{ inPelicula.genero }}</p>
+    <p><span>Fecha estreno</span>: {{ inPelicula.fechaEstreno }}</p>
+    <p>
+      <span>Precio de venta</span>:
+      <span [ngClass]="{ 'precio-antiguo': inPelicula.precioVentaNuevo }">
+        {{ inPelicula.precioVenta | currency }}
+      </span>
+      <span *ngIf="inPelicula.precioVentaNuevo">
+        {{ inPelicula.precioVentaNuevo | currency }}
+      </span>
+    </p>
+  </mat-card-content>
+  <mat-card-actions fxLayoutAlign="center center">
+    <button
+      mat-flat-button
+      [color]="determinarColorBoton(inPelicula)"
+      (click)="onEnviarPeliculaSeleccionada(inPelicula)"
+    >
+      {{ determinarMensajeBoton(inPelicula) }}
+    </button>
+  </mat-card-actions>
+</mat-card>

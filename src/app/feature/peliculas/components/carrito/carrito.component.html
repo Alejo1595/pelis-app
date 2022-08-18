@@ -1,0 +1,50 @@
+<app-cabecera [inTitulo]="'Carrito de compras'">
+  <!-- Contenedor principal -->
+  <div
+    fxLayout="column"
+    fxLayout.gt-xs="row"
+    zindex
+    fxLayoutGap="10px"
+    *ngIf="carritoService.totalPeliculas > 0"
+  >
+    <!-- Total a pagar -->
+    <div
+      fxLayout="column"
+      fxLayoutGap="20px"
+      fxLayoutAlign="center center"
+      fxLayoutAlign.gt-xs="start center"
+      fxFlex.gt-xs="1 1 calc(30% - 10px)"
+      class="total-pagar"
+    >
+      <p>
+        Total:
+        <span>
+          {{ carritoService.precioTotalPeliculas | currency }}
+        </span>
+      </p>
+      <button mat-flat-button color="primary" id="btn-pagar" (click)="onPagarPeliculas()">
+        Pagar
+      </button>
+    </div>
+    <!-- Contendor del listado de peliculas -->
+    <div
+      fxLayout="column"
+      fxFlex.gt-xs="1 1 calc(70% - 10px)"
+      fxLayoutGap="20px"
+    >
+      <app-tarjeta-carrito
+        *ngFor="
+          let pelicula of carritoService.listaPeliculasSeleccionadas;
+          trackBy: 'id' | trackBy
+        "
+        [inPelicula]="pelicula"
+        (outPeliculaRemovida)="onRemoverPelicula($event)"
+      ></app-tarjeta-carrito>
+    </div>
+  </div>
+
+  <!-- Mensaje de no peliculas -->
+  <div *ngIf="carritoService.totalPeliculas <= 0" fxLayoutAlign="center center">
+    <p class="mensaje">No hay ninguna pelicula seleccionada</p>
+  </div>
+</app-cabecera>

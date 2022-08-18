@@ -1,0 +1,13 @@
+<div fxLayout="column" fxLayoutGap="5px" class="cabecera-contenedor">
+  <mat-toolbar color="primary" class="mat-elevation-z1">
+    <mat-toolbar-row fxLayoutAlign="center center">
+      <span>{{ inTitulo }}</span>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <mat-card class="mat-elevation-z1">
+    <mat-card-content>
+      <ng-content></ng-content>
+    </mat-card-content>
+  </mat-card>
+</div>

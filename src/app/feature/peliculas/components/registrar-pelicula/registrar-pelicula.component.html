@@ -1,0 +1,274 @@
+<app-cabecera [inTitulo]="'Formulario de peliculas'">
+  <form
+    id="formularioPeliculas"
+    autocomplete="off"
+    [formGroup]="formularioPeliculas"
+    (ngSubmit)="onGuardarPelicula()"
+  >
+    <div fxLayout="column" fxLayoutGap="15px">
+      <!-- Titulo de la pelicula || Nombre del directo || Actores principales || Duración  -->
+      <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="15px">
+        <!-- Titulo de la pelicula -->
+        <mat-form-field
+          appearance="outline"
+          fxFlex.gt-sm="1 1 calc(25% - 15px)"
+        >
+          <mat-label>Titulo de la pelicula</mat-label>
+          <input
+            matInput
+            required
+            id="tituloPelicula"
+            formControlName="tituloPelicula"
+          />
+          <mat-error *ngFor="let validacion of validaciones.tituloPelicula">
+            <mat-error
+              class="mensaje-error"
+              *ngIf="getTituloPelicula.hasError(validacion.tipo)"
+            >
+              {{ validacion.mensaje }}
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Nombre del directo -->
+        <mat-form-field
+          appearance="outline"
+          fxFlex.gt-sm="1 1 calc(25% - 15px)"
+        >
+          <mat-label>Nombre del directo</mat-label>
+          <input
+            matInput
+            required
+            id="nombreDirector"
+            formControlName="nombreDirector"
+          />
+          <mat-error *ngFor="let validacion of validaciones.nombreDirector">
+            <mat-error
+              class="mensaje-error"
+              *ngIf="getNombreDirector.hasError(validacion.tipo)"
+            >
+              {{ validacion.mensaje }}
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Actores principales -->
+        <mat-form-field
+          appearance="outline"
+          fxFlex.gt-sm="1 1 calc(25% - 15px)"
+        >
+          <mat-label>Actores principales</mat-label>
+          <input
+            matInput
+            required
+            id="actoresPrincipales"
+            formControlName="actoresPrincipales"
+          />
+          <mat-error *ngFor="let validacion of validaciones.actoresPrincipales">
+            <mat-error
+              class="mensaje-error"
+              *ngIf="getActoresPrincipales.hasError(validacion.tipo)"
+            >
+              {{ validacion.mensaje }}
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Duración -->
+        <mat-form-field
+          appearance="outline"
+          fxFlex.gt-sm="1 1 calc(25% - 15px)"
+        >
+          <mat-label>Duración</mat-label>
+          <span matSuffix>min</span>
+          <input matInput required id="duracion" formControlName="duracion" />
+          <mat-error *ngFor="let validacion of validaciones.duracion">
+            <mat-error
+              class="mensaje-error"
+              *ngIf="getDuracion.hasError(validacion.tipo)"
+            >
+              {{ validacion.mensaje }}
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- Clasificación || Genero || Fecha de lanzamiento || Precio de venta -->
+      <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="15px">
+        <!-- Clasificación -->
+        <mat-form-field
+          appearance="outline"
+          fxFlex.gt-sm="1 1 calc(25% - 15px)"
+        >
+          <mat-label>Clasificación</mat-label>
+          <mat-select
+            required
+            id="idClasificacion"
+            formControlName="idClasificacion"
+            [compareWith]="compararValor"
+          >
+            <mat-option
+              *ngFor="let item of listaDeClasificacion$ | async"
+              [value]="item"
+            >
+              {{ item.descripcion }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngFor="let validacion of validaciones.idClasificacion">
+            <mat-error
+              class="mensaje-error"
+              *ngIf="getIdClasificacion.hasError(validacion.tipo)"
+            >
+              {{ validacion.mensaje }}
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Genero -->
+        <mat-form-field
+          appearance="outline"
+          fxFlex.gt-sm="1 1 calc(25% - 15px)"
+        >
+          <mat-label>Genero</mat-label>
+          <mat-select
+            required
+            id="idGenero"
+            formControlName="idGenero"
+            [compareWith]="compararValor"
+          >
+            <mat-option
+              *ngFor="
+                let item of listaDeGeneros$ | async;
+                trackBy: 'id' | trackBy
+              "
+              [value]="item"
+            >
+              {{ item.descripcion }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngFor="let validacion of validaciones.idGenero">
+            <mat-error
+              class="mensaje-error"
+              *ngIf="getIdGenero.hasError(validacion.tipo)"
+            >
+              {{ validacion.mensaje }}
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Fecha de estreno -->
+        <mat-form-field
+          appearance="outline"
+          fxFlex.gt-sm="1 1 calc(25% - 15px)"
+        >
+          <mat-label>Fecha de estreno</mat-label>
+          <input
+            matInput
+            required
+            readonly
+            id="fechaEstreno"
+            formControlName="fechaEstreno"
+            [matDatepicker]="picker"
+            [max]="fechaActual"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngFor="let validacion of validaciones.fechaEstreno">
+            <mat-error
+              class="mensaje-error"
+              *ngIf="getFechaEstreno.hasError(validacion.tipo)"
+            >
+              {{ validacion.mensaje }}
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Precio de venta -->
+        <mat-form-field
+          appearance="outline"
+          fxFlex.gt-sm="1 1 calc(25% - 15px)"
+        >
+          <mat-label>Precio de venta</mat-label>
+          <span matPrefix>$&nbsp;&nbsp;</span>
+          <input
+            matInput
+            required
+            id="precioVenta"
+            formControlName="precioVenta"
+          />
+          <mat-error *ngFor="let validacion of validaciones.precioVenta">
+            <mat-error
+              class="mensaje-error"
+              *ngIf="getPrecioVenta.hasError(validacion.tipo)"
+            >
+              {{ validacion.mensaje }}
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- Url de la imagen -->
+      <mat-form-field appearance="outline">
+        <mat-label>Url de la imagen</mat-label>
+        <input matInput required id="urlImagen" formControlName="urlImagen" />
+        <mat-error *ngFor="let validacion of validaciones.urlImagen">
+          <mat-error
+            class="mensaje-error"
+            *ngIf="getUrlImagen.hasError(validacion.tipo)"
+          >
+            {{ validacion.mensaje }}
+          </mat-error>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Argumento -->
+      <mat-form-field appearance="outline">
+        <mat-label>Argumento</mat-label>
+        <textarea
+          matInput
+          required
+          id="argumento"
+          formControlName="argumento"
+          [matTextareaAutosize]="true"
+          [matAutosizeMinRows]="6"
+          [matAutosizeMaxRows]="6"
+          [maxlength]="maximoCaracteresArgumento"
+        ></textarea>
+        <div fxLayoutAlign="end center">
+          <mat-hint>
+            {{ determinarNumeroCaracteresArgumento() }}/{{
+              maximoCaracteresArgumento
+            }}
+          </mat-hint>
+        </div>
+        <mat-error *ngFor="let validacion of validaciones.argumento">
+          <mat-error
+            class="mensaje-error"
+            *ngIf="getArgumento.hasError(validacion.tipo)"
+          >
+            {{ validacion.mensaje }}
+          </mat-error>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Botones -->
+      <div fxLayoutAlign="center center" fxLayoutGap="10px">
+        <button mat-flat-button color="primary" type="submit" id="btn-guardar">
+          Guardar
+        </button>
+        <button
+          id="btn-cancelar"
+          mat-flat-button
+          color="warn"
+          type="button"
+          (click)="onLimpiarFormulario()"
+        >
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </form>
+</app-cabecera>

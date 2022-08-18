@@ -1,0 +1,11 @@
+$height-toolbar: 2.5rem;
+
+.cabecera-contenedor {
+  margin: 1rem;
+}
+
+.mat-toolbar,
+.mat-toolbar-row {
+  min-height: $height-toolbar !important;
+  height: $height-toolbar !important;
+}

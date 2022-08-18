@@ -1,0 +1,54 @@
+<!-- Item de la lista -->
+<div fxLayout="row" class="contenedor-informacion-pelicula mat-elevation-z1">
+  <!-- Imagen de la pelicula -->
+  <img
+    [src]="inPelicula.urlImagen"
+    [alt]="inPelicula.tituloPelicula"
+    fxFlex="120px"
+  />
+  <!-- Informacion de la pelicula || precio de la pelicula -->
+  <div
+    fxLayout="column"
+    fxLayout.gt-xs="row"
+    fxLayoutAlign="space-between center"
+    fxLayoutAlign.gt-xs="space-between start"
+    fxFlex="1 1 calc(50%)"
+    fxLayoutGap="10px"
+    style="padding: 0 0.5rem"
+  >
+    <!-- Informacion de la pelicula -->
+    <div fxLayout="column" fxLayoutGap="5px">
+      <p class="no-margen titulo">{{ inPelicula.tituloPelicula }}</p>
+      <p class="no-margen">{{ inPelicula.nombreDirector }}</p>
+      <p class="no-margen">{{ inPelicula.genero }}</p>
+    </div>
+
+    <!-- Precio de la pelicula -->
+    <div fxLayout="column" fxLayoutGap="10px">
+      <p class="no-margen">Precio:</p>
+      <p
+        class="no-margen precio"
+        [ngClass]="{ 
+          'precio-antiguo': inPelicula.precioVentaNuevo,
+          'precio-valido': !inPelicula.precioVentaNuevo
+       }"
+      >
+        {{ inPelicula.precioVenta | currency }}
+      </p>
+      <p class="no-margen precio" *ngIf="inPelicula.precioVentaNuevo" [ngClass]="{
+        'precio-valido': inPelicula.precioVentaNuevo
+      }">
+        {{ inPelicula.precioVentaNuevo | currency }}
+      </p>
+    </div>
+
+    <!-- Boton de remover pelicula -->
+    <button
+      mat-raised-button
+      color="warn"
+      (click)="onRemoverPelicula(inPelicula)"
+    >
+      Quitar
+    </button>
+  </div>
+</div>

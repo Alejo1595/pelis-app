@@ -1,0 +1,23 @@
+.total-pagar {
+  & p {
+    font-size: 1.5rem;
+    font-weight: 300;
+  }
+  & span {
+    font-size: 1.8rem;
+    font-weight: 800;
+  }
+
+  & button {
+    width: 100%;
+  }
+
+  @media screen and (min-width: 600px) {
+    order: 100;
+  }
+}
+
+.mensaje {
+  font-size: 1.5rem;
+  font-weight: 400;
+}

@@ -1,0 +1,22 @@
+.menu-contenedor {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.sidenav-contenedor {
+  flex: 1;
+}
+
+.menu-contenido {
+  width: 100%;
+}
+
+.active-list-item {
+  color: hsl(240, 50%, 50%) !important;
+  background-color: hsl(0, 0%, 90%) !important;
+}
